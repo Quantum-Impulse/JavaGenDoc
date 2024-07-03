@@ -17,7 +17,7 @@ class ClassDetails:
         self.fields = []
         self.enum_constants = []
         self.nested_classes = []
-        self.comment = [] # all comments within the files of the related class
+        self.comments = [] # all comments within the files of the related class
         self.annotations = []
         self.inheritance = {'extends': [], 'implements': []}
 

@@ -7,6 +7,7 @@ from .TreeClassNode import ClassDetails
 
 all_classes = {}
 
+
 class CustomJavaLexer(JavaLexer):
     def __init__(self, input):
         super().__init__(input)
@@ -21,12 +22,12 @@ class CustomJavaLexer(JavaLexer):
         super().reset()
         self._input = JavaLexer.UnicodeBOM + self._input
 
+
 class CustomJavaParser(JavaParser):
     def __init__(self, lexer):
         super().__init__(input)
         self.current_class = ClassDetails(name="default", kind="class")
         self.lexer = lexer
-        self.current_comments = []
 
     def enterClassDeclaration(self, ctx:JavaParser.ClassDeclarationContext):
         self.current_class = ClassDetails(name=ctx.Identifier().getText(), kind="class")
@@ -40,15 +41,26 @@ class CustomJavaParser(JavaParser):
                 self.current_class.add_inheritance(kind='implements', name=interface.getText())
         
         # get modifiers
-        
+        self.get_modifiers(ctx)
+
+        # get comments
+        self.current_class.comments = self.get_current_comments(ctx)
         
 
     def enterInterfaceDeclaration(self, ctx:JavaParser.InterfaceDeclarationContext):
         self.current_class = ClassDetails(name=ctx.Identifier().getText(), kind="interface")
         
-        self.current_class.comment = self.current_comments
-        self.current_comments = []
-        all_classes[ctx.Identifier().getText()] = self.current_class
+        # get extends
+        if ctx.typeList() is not None:
+            for interface in ctx.typeList().typeType():
+                self.current_class.add_inheritance(kind='extends', name=interface.getText())
+        
+        # get modifiers
+        self.get_modifiers(ctx)
+
+        # get comments
+        self.current_class.comments = self.get_current_comments(ctx)
+
 
     def enterEnumDeclaration(self, ctx:JavaParser.EnumDeclarationContext):
         self.current_class = ClassDetails(name=ctx.Identifier().getText(), kind="enum")
@@ -73,12 +85,24 @@ class CustomJavaParser(JavaParser):
         self.current_class.add_method(ctx.methodHeader().methodDeclarator().Identifier().getText(), modifiers, ctx.methodHeader().result().getText(), ctx.methodHeader().methodDeclarator().formalParameterList().getText())
     
     def get_modifiers(self, ctx):
+        # get modifiers for classes and interfaces
         try:
             for mod in ctx.parentCtx.classOrInterfaceModifier():
                 if mod.getText()[0] == '@':
                     self.current_class.add_annotation(mod.getText())
                 
-                if
+                if mod.getText() == 'public':
+                    self.current_class.is_public = True
+                if mod.getText() == 'protected':
+                    self.current_class.is_protected = True
+                if mod.getText() == 'private':
+                    self.current_class.is_private = True
+                if mod.getText() == 'static':
+                    self.current_class.is_static = True
+                if mod.getText() == 'abstract':
+                    self.current_class.is_abstract = True
+                if mod.getText() == 'final':
+                    self.current_class.is_final = True
 
         except Exception as e:
             print(e)
