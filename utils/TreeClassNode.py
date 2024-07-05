@@ -36,10 +36,11 @@ class ClassDetails:
             'parameters': parameters
         })
     
-    def add_enum_constant(self, name, value):
+    def add_enum_constant(self, name, annotation=None, arguments=None):
         self.enum_constants.append({
             'name': name,
-            'value': value
+            'annotation': annotation,
+            'arguments': arguments
         })
     
     def add_nested_class(self, nested_class):
@@ -122,5 +123,7 @@ def build_class_tree_dict(classes):
             "annotations": details.annotations,
             "inheritance": details.inheritance
         }
+    
+    return class_dict
     
     

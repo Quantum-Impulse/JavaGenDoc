@@ -65,12 +65,18 @@ class CustomJavaParser(JavaParser):
     def enterEnumDeclaration(self, ctx:JavaParser.EnumDeclarationContext):
         self.current_class = ClassDetails(name=ctx.Identifier().getText(), kind="enum")
         
-        self.current_class.comment = self.current_comments
-        self.current_comments = []
-        all_classes[ctx.Identifier().getText()] = self.current_class
+        # get implements and extends
+        if ctx.typeType() is not None:
+            self.current_class.add_inheritance(kind='extends', name=ctx.typeType().getText())
+
+        # get modifiers
+        self.get_modifiers(ctx)
+
+        # get comments
+        self.current_class.comments = self.get_current_comments(ctx)
     
     def enterEnumConstant(self, ctx:JavaParser.EnumConstantContext):
-        self.current_class.add_enum_constant(ctx.Identifier().getText(), ctx.classBody().getText())
+        self.current_class.add_enum_constant(name=ctx.Identifier().getText(), annotation=ctx.annotation().getText(), arguments=ctx.arguments().getText())
 
     def enterFieldDeclaration(self, ctx:JavaParser.FieldDeclarationContext):
         modifiers = []
@@ -117,16 +123,19 @@ class CustomJavaParser(JavaParser):
         return comments
     
     def exitClassDeclaration(self, ctx:JavaParser.ClassDeclarationContext):
-        self.current_class.comment = self.current_comments
-        self.current_comments = []
+        print(self.current_class.get_dict())
+
+        all_classes[self.current_class.name] = self.current_class
     
     def exitInterfaceDeclaration(self, ctx:JavaParser.InterfaceDeclarationContext):
-        self.current_class.comment = self.current_comments
-        self.current_comments = []
+        print(self.current_class.get_dict())
+
+        all_classes[self.current_class.name] = self.current_class
     
     def exitEnumDeclaration(self, ctx:JavaParser.EnumDeclarationContext):
-        self.current_class.comment = self.current_comments
-        self.current_comments = []
+        print(self.current_class.get_dict())
+
+        all_classes[self.current_class.name] = self.current_class
     
 
     def get_class(self):
