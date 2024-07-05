@@ -1,16 +1,17 @@
-from utils.TreeClassNode import ClassDetails, build_class_tree_dict
+from utils.TreeClassNode import build_class_tree_dict
 from utils.JFileFinderAndParse import JavaFileParser
-from utils.TreeJsonConvert import covertTreeJson
+from utils.TreeJsonConvert import TreeJsonConvert
 
-def main(root_dir):
-    parser = JavaFileParser(root_dir)
+
+def main(root):
+    parser = JavaFileParser(root)
     parser.parse_files()
-    all_classes = parser.get_classes()
-    class_tree = build_class_tree_dict(all_classes)
+    classes = parser.get_classes()
 
-    
+    class_tree_dict = build_class_tree_dict(classes)
+    tree_json = TreeJsonConvert(class_tree_dict)
 
 
-if __name__ == "__main__":
-    root_dir = "test"
-    main(root_dir)
+if __name__ == '__main__':
+    root = 'C:'
+    main(root)
