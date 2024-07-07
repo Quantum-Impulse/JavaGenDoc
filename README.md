@@ -9,6 +9,9 @@ This project parses a Java codebase to generate an Abstract Syntax Tree (AST) an
 - `pip` (Python package installer)
 
 ## Setup Instructions
+java -jar antlr-4.8-complete.jar -Dlanguage=Python3 JavaLexer.g4
+java -jar antlr-4.8-complete.jar -Dlanguage=Python3 JavaParser.g4
+
 
 ### 1. Clone the Repository
 

@@ -142,9 +142,6 @@ class CustomJavaParser(JavaParser):
         return self.current_class
 
 
-    def reset(self):
-        super().reset()
-        self._input = JavaLexer.UnicodeBOM + self._input
 
 
 class JavaFileParser:
@@ -167,6 +164,7 @@ class JavaFileParser:
         stream = CommonTokenStream(lexer)
         parser = CustomJavaParser(stream)
         tree = parser.compilationUnit()
+        
         walker = ParseTreeWalker()
         walker.walk(self.listener, tree)
 

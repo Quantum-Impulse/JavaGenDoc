@@ -1,6 +1,7 @@
 from utils.TreeClassNode import build_class_tree_dict
 from utils.JFileFinderAndParse import JavaFileParser
-from utils.TreeJsonConvert import TreeJsonConvert
+from utils.TreeJsonConvert import covertTreeJson
+
 
 
 def main(root):
@@ -9,9 +10,9 @@ def main(root):
     classes = parser.get_classes()
 
     class_tree_dict = build_class_tree_dict(classes)
-    tree_json = TreeJsonConvert(class_tree_dict)
+    tree_json = covertTreeJson(class_tree_dict)
 
 
 if __name__ == '__main__':
-    root = 'C:'
+    root = '../../Temp Java Code/'
     main(root)
