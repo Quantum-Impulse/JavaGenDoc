@@ -1,5 +1,7 @@
-antlr4-python3-runtime=4.8.0
+antlr4-python3-runtime==4.8
 antlr4-tools
-openai
-langchain
-py4j
+langchain 
+openai 
+chromadb 
+tiktoken 
+unstructured

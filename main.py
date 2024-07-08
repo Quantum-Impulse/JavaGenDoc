@@ -10,7 +10,7 @@ def main(root):
     classes = parser.get_classes()
 
     class_tree_dict = build_class_tree_dict(classes)
-    tree_json = covertTreeJson(class_tree_dict)
+    covertTreeJson(class_tree_dict)
 
 
 if __name__ == '__main__':
