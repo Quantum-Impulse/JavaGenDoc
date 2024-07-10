@@ -14,5 +14,5 @@ def main(root):
 
 
 if __name__ == '__main__':
-    root = '../../Temp Java Code/'
+    root = 'C:\\Users\\erive\\Documents\\CODE PROJECTS\\Calculator'
     main(root)

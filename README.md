@@ -11,7 +11,15 @@ This project parses a Java codebase to generate an Abstract Syntax Tree (AST) an
 ## Setup Instructions
 java -jar antlr-4.8-complete.jar -Dlanguage=Python3 JavaLexer.g4
 java -jar antlr-4.8-complete.jar -Dlanguage=Python3 JavaParser.g4
+or 
+antlr4 -Dlanguage=Python3 JavaLexer.g4
+antlr4 -Dlanguage=Python3 JavaParser.g4
 
+
+python -m venv venv
+.\venv\Scripts\activate
+pip install -r requirements.txt
+Windows admin powershell:  Set-ExecutionPolicy Unrestricted -Force
 
 ### 1. Clone the Repository
 

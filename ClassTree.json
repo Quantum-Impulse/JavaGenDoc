@@ -1,1 +1,69 @@
-{}
+{
+    "MainApplication": {
+        "kind": "class",
+        "is_abstract": false,
+        "is_static": false,
+        "is_final": false,
+        "is_singleton": false,
+        "generics": [],
+        "methods": [
+            "name": "main",
+            "modifiers": [
+                "public",
+                "static"
+            ],
+            "parameters": "(String[]args)",
+            "return type": "void"
+        ],
+        "fields": [],
+        "nested_classes": [],
+        "comments": ["// Disable MyBatisAutoConfiguration"],
+        "extends": [],
+        "implements": []
+    },
+    "otherClass": {
+        "kind": "class",
+        "is_abstract": false,
+        "is_static": false,
+        "is_final": false,
+        "is_singleton": false,
+        "generics": [],
+        "methods": [
+            {
+                "name": "method1",
+                "modifiers": [
+                    "public"
+                ],
+                "parameters": "()",
+                "return type": "void"
+            },
+            {
+                "name": "method2",
+                "modifiers": [
+                    "public"
+                ],
+                "parameters": "(int a, int b)",
+                "return type": "int"
+            }
+        ],
+        "fields": [],
+        "nested_classes": [],
+        "comments": [],
+        "extends": [],
+        "implements": []
+    },
+    "otherClass2": {
+        "kind": "class",
+        "is_abstract": false,
+        "is_static": false,
+        "is_final": false,
+        "is_singleton": false,
+        "generics": [],
+        "methods": [],
+        "fields": [],
+        "nested_classes": [],
+        "comments": [],
+        "extends": ["otherClass"],
+        "implements": []
+    }
+}

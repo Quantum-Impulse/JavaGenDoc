@@ -15,21 +15,17 @@ class CustomJavaLexer(JavaLexer):
     
     def emitToken(self, token: Token):
         if token.type in [self.COMMENT, self.LINE_COMMENT]:
-            self.comments.append((token.text, token.line, token.column))
+            self.comments.append((token.text, token.tokenIndex))
         super().emitToken(token)
 
-    def reset(self):
-        super().reset()
-        self._input = JavaLexer.UnicodeBOM + self._input
 
 
 class CustomJavaParser(JavaParser):
     def __init__(self, lexer):
-        super().__init__(input)
         self.current_class = ClassDetails(name="default", kind="class")
         self.lexer = lexer
 
-    def enterClassDeclaration(self, ctx:JavaParser.ClassDeclarationContext):
+    def enterClassDeclaration(self, ctx: JavaParser.ClassDeclarationContext):
         self.current_class = ClassDetails(name=ctx.Identifier().getText(), kind="class")
         
         # get implements and extends
@@ -47,7 +43,7 @@ class CustomJavaParser(JavaParser):
         self.current_class.comments = self.get_current_comments(ctx)
         
 
-    def enterInterfaceDeclaration(self, ctx:JavaParser.InterfaceDeclarationContext):
+    def enterInterfaceDeclaration(self, ctx: JavaParser.InterfaceDeclarationContext):
         self.current_class = ClassDetails(name=ctx.Identifier().getText(), kind="interface")
         
         # get extends
@@ -155,6 +151,7 @@ class JavaFileParser:
         for subdir, _, files in os.walk(self.root_dir):
             for file in files:
                 if file.endswith('.java'):
+                    print("java file found: ", file)
                     file_path = os.path.join(subdir, file)
                     self.parse_file(file_path)
 
@@ -166,7 +163,8 @@ class JavaFileParser:
         tree = parser.compilationUnit()
         
         walker = ParseTreeWalker()
-        walker.walk(self.listener, tree)
+        listener = CustomJavaParser(lexer)
+        walker.walk(listener, tree)
 
     def get_classes(self):
         return all_classes 
