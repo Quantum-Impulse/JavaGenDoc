@@ -13,11 +13,10 @@ class CustomJavaLexer(JavaLexer):
         super().__init__(input)
         self.comments = []
     
-    def emitToken(self, token: Token):
+    def emitToken(self, token):
         if token.type in [self.COMMENT, self.LINE_COMMENT]:
             self.comments.append((token.text, token.tokenIndex))
         super().emitToken(token)
-
 
 
 class CustomJavaParser(JavaParser):
@@ -26,7 +25,7 @@ class CustomJavaParser(JavaParser):
         self.lexer = lexer
 
     def enterClassDeclaration(self, ctx: JavaParser.ClassDeclarationContext):
-        self.current_class = ClassDetails(name=ctx.Identifier().getText(), kind="class")
+        self.current_class = ClassDetails(name=ctx.identifier().getText(), kind="class")
         
         # get implements and extends
         if ctx.typeType() is not None:
@@ -43,8 +42,8 @@ class CustomJavaParser(JavaParser):
         self.current_class.comments = self.get_current_comments(ctx)
         
 
-    def enterInterfaceDeclaration(self, ctx: JavaParser.InterfaceDeclarationContext):
-        self.current_class = ClassDetails(name=ctx.Identifier().getText(), kind="interface")
+    def enterInterfaceDeclaration(self, ctx:JavaParser.InterfaceDeclarationContext):
+        self.current_class = ClassDetails(name=ctx.identifier().getText(), kind="interface")
         
         # get extends
         if ctx.typeList() is not None:
@@ -59,7 +58,7 @@ class CustomJavaParser(JavaParser):
 
 
     def enterEnumDeclaration(self, ctx:JavaParser.EnumDeclarationContext):
-        self.current_class = ClassDetails(name=ctx.Identifier().getText(), kind="enum")
+        self.current_class = ClassDetails(name=ctx.identifier().getText(), kind="enum")
         
         # get implements and extends
         if ctx.typeType() is not None:
@@ -72,7 +71,7 @@ class CustomJavaParser(JavaParser):
         self.current_class.comments = self.get_current_comments(ctx)
     
     def enterEnumConstant(self, ctx:JavaParser.EnumConstantContext):
-        self.current_class.add_enum_constant(name=ctx.Identifier().getText(), annotation=ctx.annotation().getText(), arguments=ctx.arguments().getText())
+        self.current_class.add_enum_constant(name=ctx.identifier().getText(), annotation=ctx.annotation().getText(), arguments=ctx.arguments().getText())
 
     def enterFieldDeclaration(self, ctx:JavaParser.FieldDeclarationContext):
         modifiers = []
@@ -84,7 +83,7 @@ class CustomJavaParser(JavaParser):
         modifiers = []
         for modifier in ctx.modifier():
             modifiers.append(modifier.getText())
-        self.current_class.add_method(ctx.methodHeader().methodDeclarator().Identifier().getText(), modifiers, ctx.methodHeader().result().getText(), ctx.methodHeader().methodDeclarator().formalParameterList().getText())
+        self.current_class.add_method(ctx.methodHeader().methodDeclarator().identifier().getText(), modifiers, ctx.methodHeader().result().getText(), ctx.methodHeader().methodDeclarator().formalParameterList().getText())
     
     def get_modifiers(self, ctx):
         # get modifiers for classes and interfaces
@@ -144,9 +143,9 @@ class JavaFileParser:
     def __init__(self, root_dir):
         self.root_dir = root_dir
         self.listener = CustomJavaParser(lexer=None)
-        
+        self.classes = {}
 
-    
+
     def parse_files(self):
         for subdir, _, files in os.walk(self.root_dir):
             for file in files:
@@ -154,6 +153,9 @@ class JavaFileParser:
                     print("java file found: ", file)
                     file_path = os.path.join(subdir, file)
                     self.parse_file(file_path)
+        if self.listener:
+            return self.classes
+        return {}
 
     def parse_file(self, file_path):
         input_stream = FileStream(file_path)
