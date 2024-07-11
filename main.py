@@ -14,5 +14,7 @@ def main(root):
 
 
 if __name__ == '__main__':
-    root = 'C:\\Users\\erive\\Documents\\CODE PROJECTS\\Calculator'
+    # path for my mac: '/Users/apple/Documents/Coding Projects/Temp Java Code/'
+    # path for my windows: 
+    root = '/Users/apple/Documents/Coding Projects/Temp Java Code/'
     main(root)
