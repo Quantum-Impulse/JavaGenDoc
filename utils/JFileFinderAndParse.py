@@ -19,7 +19,7 @@ class CustomJavaLexer(JavaLexer):
         super().emitToken(token)
 
 
-class CustomJavaParser(JavaParser):
+class CustomJavaParser(JavaParserListener):
     def __init__(self, lexer):
         self.current_class = ClassDetails(name="default", kind="class")
         self.lexer = lexer
@@ -184,7 +184,7 @@ class CustomJavaParser(JavaParser):
         except Exception as e:
             print(e, "interface method error")
         
-    def enterEnumBodyDeclaration(self, ctx:JavaParser.EnumBodyDeclarationContext):
+    def enterEnumBodyDeclaration(self, ctx: JavaParser.EnumBodyDeclarationsContext):
         # find methods information in enums
         try:
             name = ctx.classBodyDeclaration().memberDeclaration().getText()
@@ -275,37 +275,38 @@ class JavaFileParser:
         self.classes = {}
 
     
-    def parse_files(self):
-        for subdir, _, files in os.walk(self.root_dir):
-            for file in files:
-                if file.endswith('.java'):
-                    lexer = self.parse_file(os.path.join(subdir, file))
-        if self.listener:
-            return self.classes
-        return {}
-
-
     # def parse_files(self):
     #     for subdir, _, files in os.walk(self.root_dir):
     #         for file in files:
     #             if file.endswith('.java'):
-    #                 print("java file found: ", file)
-    #                 file_path = os.path.join(subdir, file)
-    #                 self.parse_file(file_path)
+    #                 lexer = self.parse_file(os.path.join(subdir, file))
     #     if self.listener:
     #         return self.classes
     #     return {}
+
+
+    def parse_files(self):
+        for subdir, _, files in os.walk(self.root_dir):
+            for file in files:
+                if file.endswith('.java'):
+                    print("java file found: ", file)
+                    file_path = os.path.join(subdir, file)
+                    self.parse_file(file_path)
+        if self.listener:
+            return self.classes
+        return {}
 
     def parse_file(self, file_path):
         input_stream = FileStream(file_path)
         lexer = CustomJavaLexer(input_stream)
         stream = CommonTokenStream(lexer)
-        parser = CustomJavaParser(stream)
+        parser = JavaParser(stream)
         tree = parser.compilationUnit()
         
         walker = ParseTreeWalker()
         listener = CustomJavaParser(lexer)
         walker.walk(listener, tree)
+        return lexer
 
     def get_classes(self):
         return all_classes 
