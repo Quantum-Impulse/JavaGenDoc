@@ -15,6 +15,7 @@ class ClassDetails:
         self.generics = generics if generics else []
         self.methods = []
         self.fields = []
+        self.usage = []
         self.enum_constants = []
         self.nested_classes = []
         self.comments = [] # all comments within the files of the related class
@@ -30,6 +31,15 @@ class ClassDetails:
     
     def add_method(self, name, modifiers, return_type=None, parameters=None):
         self.methods.append({
+            'name': name,
+            'modifiers': modifiers,
+            'return_type': return_type,
+            'parameters': parameters
+        })
+    
+    def add_usage(self, type, name, modifiers=None, return_type=None, parameters=None):
+        self.usage.append({
+            'type': type,
             'name': name,
             'modifiers': modifiers,
             'return_type': return_type,
@@ -69,6 +79,7 @@ class ClassDetails:
             'generics': self.generics,
             'methods': self.methods,
             'fields': self.fields,
+            'usage': self.usage, 
             'enum_constants': self.enum_constants,
             'nested_classes': [nested_class.get_dict() for nested_class in self.nested_classes],
             'comment': self.comments,

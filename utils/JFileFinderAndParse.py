@@ -202,6 +202,19 @@ class CustomJavaParser(JavaParserListener):
         except Exception as e:
             print(e, "nested method in enum error")
 
+    def enterExpression(self, ctx: JavaParser.ExpressionContext):
+        try:
+            # Capture method calls and variable usages
+            if ctx.methodCall() is not None:
+                method_call = ctx.methodCall().identifier().getText()
+                method_args = ctx.methodCall().expressionList().getText() if ctx.methodCall().expressionList() else ""
+                self.current_class.add_usage("method_call", method_call, method_args)
+            elif ctx.primary() is not None and ctx.primary().identifier() is not None:
+                variable_usage = ctx.primary().identifier().getText()
+                self.current_class.add_usage("variable_usage", variable_usage)
+        except Exception as e:
+            print(e, "expression error")
+    
     def get_modifiers(self, ctx):
         # get modifiers for classes and interfaces
         try:
