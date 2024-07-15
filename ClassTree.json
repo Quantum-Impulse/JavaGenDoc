@@ -1,27 +1,5 @@
 {
-    "MainApplication": {
-        "kind": "class",
-        "is_abstract": false,
-        "is_static": false,
-        "is_final": false,
-        "is_singleton": false,
-        "generics": [],
-        "methods": [
-            "name": "main",
-            "modifiers": [
-                "public",
-                "static"
-            ],
-            "parameters": "(String[]args)",
-            "return type": "void"
-        ],
-        "fields": [],
-        "nested_classes": [],
-        "comments": ["// Disable MyBatisAutoConfiguration"],
-        "extends": [],
-        "implements": []
-    },
-    "otherClass": {
+    "CalculatorUITest": {
         "kind": "class",
         "is_abstract": false,
         "is_static": false,
@@ -30,40 +8,289 @@
         "generics": [],
         "methods": [
             {
-                "name": "method1",
+                "name": "setUp",
                 "modifiers": [
-                    "public"
+                    "@BeforeEach"
                 ],
-                "parameters": "()",
-                "return type": "void"
+                "return_type": "void",
+                "parameters": "()"
             },
             {
-                "name": "method2",
+                "name": "testCalculation",
                 "modifiers": [
-                    "public"
+                    "@ParameterizedTest",
+                    "@CsvSource({\"3,5,+,8\",\"2,8,-,-6\",\"44.5,10,*,445\",\"320,5,/,64\",\"3,5,%,3\",\"5,3,^,125\"})"
                 ],
-                "parameters": "(int a, int b)",
-                "return type": "int"
+                "return_type": "void",
+                "parameters": "(doublefirstNumber,doublesecondNumber,charoperator,doubleexpectedResult)"
             }
         ],
         "fields": [],
+        "enum_constants": [],
         "nested_classes": [],
-        "comments": [],
-        "extends": [],
-        "implements": []
+        "comment": [],
+        "annotations": [],
+        "inheritance": {
+            "extends": [],
+            "implements": []
+        }
     },
-    "otherClass2": {
+    "App": {
         "kind": "class",
         "is_abstract": false,
         "is_static": false,
         "is_final": false,
         "is_singleton": false,
         "generics": [],
-        "methods": [],
+        "methods": [
+            {
+                "name": "main",
+                "modifiers": [
+                    "public",
+                    "static"
+                ],
+                "return_type": "void",
+                "parameters": "(String[]args)"
+            }
+        ],
         "fields": [],
+        "enum_constants": [],
         "nested_classes": [],
-        "comments": [],
-        "extends": ["otherClass"],
-        "implements": []
+        "comment": [],
+        "annotations": [],
+        "inheritance": {
+            "extends": [],
+            "implements": []
+        }
+    },
+    "ColorUtil": {
+        "kind": "class",
+        "is_abstract": false,
+        "is_static": false,
+        "is_final": false,
+        "is_singleton": false,
+        "generics": [],
+        "methods": [
+            {
+                "name": "hex2Color",
+                "modifiers": [
+                    "public",
+                    "static"
+                ],
+                "return_type": "Color",
+                "parameters": "(StringcolorHex)"
+            }
+        ],
+        "fields": [],
+        "enum_constants": [],
+        "nested_classes": [],
+        "comment": [],
+        "annotations": [],
+        "inheritance": {
+            "extends": [],
+            "implements": []
+        }
+    },
+    "ThemeLoader": {
+        "kind": "class",
+        "is_abstract": false,
+        "is_static": false,
+        "is_final": false,
+        "is_singleton": false,
+        "generics": [],
+        "methods": [
+            {
+                "name": "loadThemes",
+                "modifiers": [
+                    "public",
+                    "static"
+                ],
+                "return_type": "Map<String,Theme>",
+                "parameters": "()"
+            }
+        ],
+        "fields": [],
+        "enum_constants": [],
+        "nested_classes": [],
+        "comment": [],
+        "annotations": [],
+        "inheritance": {
+            "extends": [],
+            "implements": []
+        }
+    },
+    "ThemeList": {
+        "kind": "class",
+        "is_abstract": false,
+        "is_static": false,
+        "is_final": false,
+        "is_singleton": false,
+        "generics": [],
+        "methods": [
+            {
+                "name": "getThemes",
+                "modifiers": [
+                    "public"
+                ],
+                "return_type": "List<Theme>",
+                "parameters": "()"
+            },
+            {
+                "name": "setThemes",
+                "modifiers": [
+                    "public"
+                ],
+                "return_type": "void",
+                "parameters": "(List<Theme>themes)"
+            },
+            {
+                "name": "getThemesAsMap",
+                "modifiers": [
+                    "public"
+                ],
+                "return_type": "Map<String,Theme>",
+                "parameters": "()"
+            }
+        ],
+        "fields": [],
+        "enum_constants": [],
+        "nested_classes": [],
+        "comment": [],
+        "annotations": [],
+        "inheritance": {
+            "extends": [],
+            "implements": []
+        }
+    },
+    "Theme": {
+        "kind": "class",
+        "is_abstract": false,
+        "is_static": false,
+        "is_final": false,
+        "is_singleton": false,
+        "generics": [],
+        "methods": [
+            {
+                "name": "getName",
+                "modifiers": [
+                    "public"
+                ],
+                "return_type": "String",
+                "parameters": "()"
+            },
+            {
+                "name": "setName",
+                "modifiers": [
+                    "public"
+                ],
+                "return_type": "void",
+                "parameters": "(Stringname)"
+            },
+            {
+                "name": "getApplicationBackground",
+                "modifiers": [
+                    "public"
+                ],
+                "return_type": "String",
+                "parameters": "()"
+            },
+            {
+                "name": "setApplicationBackground",
+                "modifiers": [
+                    "public"
+                ],
+                "return_type": "void",
+                "parameters": "(StringapplicationBackground)"
+            },
+            {
+                "name": "getTextColor",
+                "modifiers": [
+                    "public"
+                ],
+                "return_type": "String",
+                "parameters": "()"
+            },
+            {
+                "name": "setTextColor",
+                "modifiers": [
+                    "public"
+                ],
+                "return_type": "void",
+                "parameters": "(StringtextColor)"
+            },
+            {
+                "name": "getBtnEqualTextColor",
+                "modifiers": [
+                    "public"
+                ],
+                "return_type": "String",
+                "parameters": "()"
+            },
+            {
+                "name": "setBtnEqualTextColor",
+                "modifiers": [
+                    "public"
+                ],
+                "return_type": "void",
+                "parameters": "(StringbtnEqualTextColor)"
+            },
+            {
+                "name": "getOperatorBackground",
+                "modifiers": [
+                    "public"
+                ],
+                "return_type": "String",
+                "parameters": "()"
+            },
+            {
+                "name": "setOperatorBackground",
+                "modifiers": [
+                    "public"
+                ],
+                "return_type": "void",
+                "parameters": "(StringoperatorBackground)"
+            },
+            {
+                "name": "getNumbersBackground",
+                "modifiers": [
+                    "public"
+                ],
+                "return_type": "String",
+                "parameters": "()"
+            },
+            {
+                "name": "setNumbersBackground",
+                "modifiers": [
+                    "public"
+                ],
+                "return_type": "void",
+                "parameters": "(StringnumbersBackground)"
+            },
+            {
+                "name": "getBtnEqualBackground",
+                "modifiers": [
+                    "public"
+                ],
+                "return_type": "String",
+                "parameters": "()"
+            },
+            {
+                "name": "setBtnEqualBackground",
+                "modifiers": [
+                    "public"
+                ],
+                "return_type": "void",
+                "parameters": "(StringbtnEqualBackground)"
+            }
+        ],
+        "fields": [],
+        "enum_constants": [],
+        "nested_classes": [],
+        "comment": [],
+        "annotations": [],
+        "inheritance": {
+            "extends": [],
+            "implements": []
+        }
     }
 }

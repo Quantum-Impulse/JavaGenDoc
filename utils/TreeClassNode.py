@@ -47,7 +47,7 @@ class ClassDetails:
         self.nested_classes.append(nested_class)
 
     def add_comment(self, comment):
-        self.comment.append(comment)
+        self.comments.append(comment)
     
     def add_annotation(self, annotation):
         self.annotations.append(annotation)
@@ -71,7 +71,7 @@ class ClassDetails:
             'fields': self.fields,
             'enum_constants': self.enum_constants,
             'nested_classes': [nested_class.get_dict() for nested_class in self.nested_classes],
-            'comment': self.comment,
+            'comment': self.comments,
             'annotations': self.annotations,
             'inheritance': self.inheritance
         }
@@ -119,7 +119,7 @@ def build_class_tree_dict(classes):
             "fields": details.fields,
             "enum_constants": details.enum_constants,
             "nested_classes": [nested_class.get_dict() for nested_class in details.nested_classes],
-            "comment": details.comment,
+            "comment": details.comments,
             "annotations": details.annotations,
             "inheritance": details.inheritance
         }

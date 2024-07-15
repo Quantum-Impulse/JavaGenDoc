@@ -38,7 +38,7 @@ class CustomJavaParser(JavaParserListener):
             )
         
         if ctx.typeList() is not None:
-            for interface in ctx.typeList().typeType():
+            for interface in ctx.typeList():
                 self.current_class.add_inheritance(
                     kind='implements', 
                     name=interface.getText()
