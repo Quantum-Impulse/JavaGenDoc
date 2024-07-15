@@ -25,7 +25,15 @@
                 "parameters": "(doublefirstNumber,doublesecondNumber,charoperator,doubleexpectedResult)"
             }
         ],
-        "fields": [],
+        "fields": [
+            {
+                "name_and_value": "calculatorUI ",
+                "modifiers": [
+                    "private"
+                ],
+                "var_type": "CalculatorUI"
+            }
+        ],
         "enum_constants": [],
         "nested_classes": [],
         "comment": [],
@@ -152,7 +160,15 @@
                 "parameters": "()"
             }
         ],
-        "fields": [],
+        "fields": [
+            {
+                "name_and_value": "themes ",
+                "modifiers": [
+                    "private"
+                ],
+                "var_type": "List"
+            }
+        ],
         "enum_constants": [],
         "nested_classes": [],
         "comment": [],
@@ -283,7 +299,57 @@
                 "parameters": "(StringbtnEqualBackground)"
             }
         ],
-        "fields": [],
+        "fields": [
+            {
+                "name_and_value": "name ",
+                "modifiers": [
+                    "private"
+                ],
+                "var_type": "String"
+            },
+            {
+                "name_and_value": "applicationBackground ",
+                "modifiers": [
+                    "private"
+                ],
+                "var_type": "String"
+            },
+            {
+                "name_and_value": "textColor ",
+                "modifiers": [
+                    "private"
+                ],
+                "var_type": "String"
+            },
+            {
+                "name_and_value": "btnEqualTextColor ",
+                "modifiers": [
+                    "private"
+                ],
+                "var_type": "String"
+            },
+            {
+                "name_and_value": "operatorBackground ",
+                "modifiers": [
+                    "private"
+                ],
+                "var_type": "String"
+            },
+            {
+                "name_and_value": "numbersBackground ",
+                "modifiers": [
+                    "private"
+                ],
+                "var_type": "String"
+            },
+            {
+                "name_and_value": "btnEqualBackground ",
+                "modifiers": [
+                    "private"
+                ],
+                "var_type": "String"
+            }
+        ],
         "enum_constants": [],
         "nested_classes": [],
         "comment": [],

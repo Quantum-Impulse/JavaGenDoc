@@ -126,8 +126,8 @@ class CustomJavaParser(JavaParserListener):
                 mods.append(mod.getText())
             
             var_name_and_value = ""
-            for name in ctx.variableDeclarators.variableDeclarator():
-                var_name_and_value += name.getText() + " "
+            for name in ctx.variableDeclarators().variableDeclarator():
+                var_name_and_value += name.variableDeclaratorId().getText() + " "
             
             var_type = ctx.typeType().classOrInterfaceType().typeIdentifier().getText()
 
