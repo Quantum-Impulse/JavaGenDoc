@@ -215,6 +215,14 @@ class CustomJavaParser(JavaParserListener):
         except Exception as e:
             print(e, "expression error")
     
+    def enterLocalVariableDeclaration(self, ctx: JavaParser.LocalVariableDeclarationContext):
+        try:
+            var_type = ctx.typeType().getText()
+            var_name = ctx.variableDeclarators().variableDeclarator(0).identifier().getText()
+            self.current_class.add_usage("variable_declaration", var_name, var_type)
+        except Exception as e:
+            print(e, "local variable declaration error")
+    
     def get_modifiers(self, ctx):
         # get modifiers for classes and interfaces
         try:
