@@ -46,3 +46,12 @@ In the utils folder using the constants.py.default as a template, create a copy 
 ```sh
 python main.py
 ```
+
+Overview
+High-level desgin (node graph)
+plan
+implementation 
+Model used / data sources / Code Bases Used
+Tech Stack
+Learning Curve
+Areas of futher inquiry 
